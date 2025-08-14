@@ -1,4 +1,8 @@
 #calculator{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
     background-color: hsl(0, 0%, 15%);
     max-width: 500px;
     border-radius: 15px;
@@ -29,6 +33,11 @@ button{
     color: white;
     font-size: 3rem;
     
+}
+body{
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 #non-number{
     background-color: hsl(30, 100%, 50%);
