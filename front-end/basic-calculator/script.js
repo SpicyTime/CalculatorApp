@@ -62,8 +62,8 @@ function convertToRPN(tokens){
 
 function calculate(){
     let tokens = tokenizeDisplay();
-    let rpn = convertToRPN(tokens);
-    RPNTesterLabel.textContent = tokens.join();
+    let rpnTokens = convertToRPN(tokens);
+    RPNTesterLabel.textContent = rpnTokens.join();
     try{
         display.value = eval(display.value);
     }
@@ -74,4 +74,7 @@ function calculate(){
 }
 function clearDisplay(){
     display.value = "";
+}
+function backspace(){
+    display.value = display.value.slice(0, -1);
 }
