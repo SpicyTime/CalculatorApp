@@ -28,6 +28,7 @@ function tokenizeDisplay(){
     tokens.push(characterBuffer.join(""));
     return tokens;
 }
+
 function evalExpression(string_num1, string_num2, operator){
     let num1 = parseFloat(string_num1);
     let num2 = parseFloat(string_num2);
@@ -36,12 +37,12 @@ function evalExpression(string_num1, string_num2, operator){
         case"+":
             return num1 + num2;
         case"-":
-            return num1 - num2;
+            return num2 - num1;
         case"*":
             return num1 * num2;
         case"/":
             try{
-                return num1 / num2;
+                return num2 / num1;
             }
             catch{
                 errored = true;
@@ -58,11 +59,13 @@ function evalRPN(tokens){
         if (operators.includes(token)){
             const num1 = stack.pop();
             const num2 = stack.pop();
+            
             stack.push(evalExpression( num1, num2, token).toString())
         }else{
             stack.push(token);
         }
     }
+
     return stack[0];
 }
 
@@ -80,7 +83,7 @@ function getPrecedence(op) {
 function convertToRPN(tokens) {
     const output = [];
     const stack = [];
-
+    
     for (let token of tokens) {
         if (!operators.includes(token)) {
             output.push(token);
@@ -104,9 +107,8 @@ function convertToRPN(tokens) {
 function calculate(){
     let tokens = tokenizeDisplay();
     let rpnTokens = convertToRPN(tokens);
-    RPNTesterLabel.textContent = rpnTokens.join();
     try{
-        display.value = eval(display.value);
+        display.value = evalRPN(rpnTokens);
     }
     catch{
         display.value = "ERROR";
